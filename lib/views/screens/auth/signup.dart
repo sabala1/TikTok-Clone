@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/controllers/auth.dart';
 import 'package:tiktok_clone/views/widgets/text_input.dart';
+import 'package:tiktok_clone/views/screens/auth/login.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
@@ -14,7 +16,8 @@ class SignUp extends StatelessWidget {
     return Scaffold(
         body: Container(
       alignment: Alignment.center,
-      child: SingleChildScrollView( //แก้ bottom overflow
+      child: SingleChildScrollView(
+        //แก้ bottom overflow
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             'Tiktok Clone',
@@ -46,9 +49,7 @@ class SignUp extends StatelessWidget {
                 bottom: -10,
                 left: 80,
                 child: IconButton(
-                    onPressed: () {
-                      print('pick image');
-                    },
+                    onPressed: () => authController.pickImage(),
                     icon: const Icon(
                       Icons.add_a_photo,
                     )),
@@ -80,6 +81,7 @@ class SignUp extends StatelessWidget {
               labelText: 'Email',
               icon: Icons.email,
             ),
+            
           ),
           const SizedBox(
             height: 15,
@@ -91,6 +93,7 @@ class SignUp extends StatelessWidget {
               controller: _passwordController,
               labelText: 'Password',
               icon: Icons.lock,
+              isObscure: true,
             ),
           ),
           const SizedBox(
@@ -108,9 +111,12 @@ class SignUp extends StatelessWidget {
             ),
             child: InkWell(
               //ตอบสนองเหมือนปุ่มกด
-              onTap: () {
-                print('Login User');
-              },
+              onTap: () => authController.registerUser(
+                _usernameController.text,
+                _emailController.text, 
+                _passwordController.text, 
+                authController.profilePhoto),
+                 
               child: const Center(
                 child: Text(
                   'Register',
@@ -130,7 +136,9 @@ class SignUp extends StatelessWidget {
             children: [
               const Text(
                 'Already have an account?',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20
+                ),
               ),
               InkWell(
                 onTap: () {
