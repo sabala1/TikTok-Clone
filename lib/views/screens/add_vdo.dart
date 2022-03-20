@@ -13,9 +13,9 @@ class AddVDO extends StatelessWidget {
     if (video != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const Confirm(
-              // videoFile: File(video.path),
-              // videoPath: video.path,
+          builder: (context) => Confirm(
+              videoFile: File(video.path),
+              videoPath: video.path,
           ),
         ),
       );
